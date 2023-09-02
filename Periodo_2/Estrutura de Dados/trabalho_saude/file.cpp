@@ -32,7 +32,7 @@ int main(){
   if(file == NULL){ 
     cout << "Erro ao abrir";
     exit(1);
-  } 
+  }
 
   for(int i=0; i<3; i++){
   fseek(file, 0, SEEK_END);

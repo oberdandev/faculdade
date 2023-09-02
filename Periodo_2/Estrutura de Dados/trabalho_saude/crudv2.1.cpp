@@ -46,8 +46,6 @@ typedef struct {
     Endereco endereco;
 } Profissional;
 
-
-
 typedef struct {
     string codigo;
     string nome;
@@ -75,7 +73,6 @@ typedef struct {
 //FIM DOS STRUCTS
 
 //variaveis globais aq
-
 const string nomeMes[12] = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
 union clienteOuProfissional{
   Cliente cliente;
@@ -281,10 +278,10 @@ bool Email_check(string email){
 
 
 
-string verificaCpf(string cpf){
+// string verificaCpf(string cpf){
   /* Criar uma verificação para cpf - muito complexo para se preocupar no momento
   após o projeto estar mais robusto irei focar nas validações restantes. */
-}
+//} 
 
 //INICIO FUNÇÕES CADASTRO
 string cadastrarCPF(string tipoPessoa) {
@@ -306,9 +303,6 @@ string cadastrarNome(string tipoPessoa) {
   cout << "Digite o nome do " << tipoPessoa << " para ser cadastrado. Ex: Joao Pedro \n";
   cin.ignore(); //aparentemente...
   getline(cin,nome); //Antes não estava lendo nomes compostos
-  //cin >> nome;
-
-  //cin.ignore();
 
   while(nome.length() < 3) {
    cout << "Digite um nome válido para o " << tipoPessoa << ". \n";
@@ -320,7 +314,7 @@ string cadastrarNome(string tipoPessoa) {
 
 string cadastrarProfissao(){
   string profissao;
-  cout << "Digite a profissão do funcionário." << endl;
+  cout << "Digite uma profissão a ser cadastrada:" << endl;
   cin >> profissao;
 
   return profissao;
@@ -340,7 +334,6 @@ string cadastrarSigla(){
   return sigla;
 }
 
-
 int cadastrarIdade(string tipoPessoa){
   int idade;
   cout << "Digite a idade do " << tipoPessoa << " para ser cadastrado." << endl;
@@ -354,68 +347,63 @@ string cadastrarEmail(string tipoPessoa){
 
     cout << "Digite o endereço de E-mail do " << tipoPessoa << " para ser cadastrado. Ex: mariasilva@gmail.com" << endl;
     cin >> email;
-    cout << Email_check(email);
-    if(Email_check(email)){
-        return email;
-    }else{
-        while(Email_check(email) == false){
-             cout << "Digite um endereço de E-mail válido para o " << tipoPessoa << endl;
-             cin >> email;
-         }
-    }
+    fflush(stdin);
     //(Email_check(email))
     // while(!Email_check(email)){
     //     cout << "Digite um endereço de E-mail válido para o " << tipoPessoa << endl;
     //     cin >> email;
     // }
-   
-
     return email;
 }
 
 string cadastrarMatriculaProfissional(){
     string matricula;
-
     cout << "Digite a matrícula do profissional: ";
     cin >> matricula;
 
     return matricula;
 };
 
-
-Endereco cadastrarEndereco(string tipoPessoa){
-    Endereco endereco;
-
-    cout<< "Cadastro do Endereço do " << tipoPessoa << "." << endl;
-
-    cout << "\nDigite o logradouro do " << tipoPessoa << " a ser cadastrado" << endl;
-    cin >> endereco.logradouro;
-
-    cout << "\nDigite o bairro do " << tipoPessoa << " a ser cadastrado" << endl;
-    //cin.ignore();
-    cin >> endereco.bairro;
-    //getline(cin, endereco.bairro);
-
-    cout << "\nDigite o número do endereço " << tipoPessoa << " a ser cadastrado" << endl;
-    cin >> endereco.numero;
-
-    cout << "\nDigite a Cidade do " << tipoPessoa << " a ser cadastrado" << endl;
-    //cin.ignore();
-    cin >> endereco.cidade;
-    //getline(cin,endereco.cidade);
-
-    cout << "\nDigite o Estado do " << tipoPessoa << " a ser cadastrado" << endl;
-    //cin.ignore();
-    cin >> endereco.estado;
-    //getline(cin,endereco.estado);
-
-    cout << "\nDigite o CEP do " << tipoPessoa << " a ser cadastrado" << endl;
-    cin >> endereco.CEP;
-
-    return endereco;
-};
+string cadastroGenerico(string tipoCadastro){
+    string resposta;
+    cout << "Digite o " << tipoCadastro <<  " a ser cadastrado:" << endl;
+    getline(cin, resposta);
+    fflush(stdin);
+    return resposta;
+}
 
 
+// Endereco cadastrarEndereco(string tipoPessoa, Profissional profissional){
+//     string rua;
+//     cout << "\nDigite o logradouro do " << tipoPessoa << " a ser cadastrado" << endl;
+//     cin >> 
+//     profissional.endereco.logradouro = rua;
+//     limpaTela();
+//     exibeDadosProfissional(profissional);
+
+//     cout << "\nDigite o bairro do " << tipoPessoa << " a ser cadastrado" << endl;
+//     cin >> endereco.bairro;
+//     limpaTela();
+//     exibeDadosProfissional(profissional);
+
+//     cout << "\nDigite o número do endereço " << tipoPessoa << " a ser cadastrado" << endl;
+//     cin >> endereco.numero;
+
+//     cout << "\nDigite a Cidade do " << tipoPessoa << " a ser cadastrado" << endl;
+//     //cin.ignore();
+//     cin >> endereco.cidade;
+//     //getline(cin,endereco.cidade);
+
+//     cout << "\nDigite o Estado do " << tipoPessoa << " a ser cadastrado" << endl;
+//     //cin.ignore();
+//     cin >> endereco.estado;
+//     //getline(cin,endereco.estado);
+
+//     cout << "\nDigite o CEP do " << tipoPessoa << " a ser cadastrado" << endl;
+//     cin >> endereco.CEP;
+
+//     return endereco;
+// };
 
 void exibeDadosProfissional(Profissional profissional) {
   limpaTela();
@@ -438,8 +426,6 @@ void exibeDadosProfissional(Profissional profissional) {
   cout << "Número: " << profissional.endereco.numero << endl;
   cout << "CEP: " << profissional.endereco.CEP << endl;
   cout << "" << endl;
-
-
 }
 
 void cadastrarProfissoes() {
@@ -447,13 +433,13 @@ void cadastrarProfissoes() {
   cout << "Digite um nome da profissão que você deseja adicionar no sistema: ";
   cin >> nomeProfissao;
   nomeProfissao = maisculo(nomeProfissao);
-
 };
-
 
 void cadastrarProfissional() {
   Profissional profissional;
   Endereco endereco;
+  profissional.endereco = endereco;
+  profissional.endereco.numero = 0;
   profissional.idade = 0;
   profissional.nome = cadastrarNome("profissional");
   exibeDadosProfissional(profissional);
@@ -469,19 +455,19 @@ void cadastrarProfissional() {
   exibeDadosProfissional(profissional);
   profissional.email = cadastrarEmail("profissional");
   exibeDadosProfissional(profissional);
-  profissional.endereco = cadastrarEndereco("profissional");
+  profissional.endereco.bairro = cadastroGenerico("bairro");
   exibeDadosProfissional(profissional);
-
-
+  profissional.endereco.bairro = cadastroGenerico("bairro");
+  exibeDadosProfissional(profissional);
+  profissional.endereco.logradouro = cadastroGenerico("logradouro");
+  exibeDadosProfissional(profissional);
+  profissional.endereco.CEP = cadastroGenerico("CEP");
+  exibeDadosProfissional(profissional);
 
 
   listaProfissionais[0] = profissional;
   cout << "TESTE PRA VER SE VAI DAR CERTO " << listaProfissionais[0].nome << endl;
-
-
 };
-
-
 
 
 bool validaData(int dia, int mes){
@@ -510,14 +496,6 @@ string cadastrarNomeCliente(string tipoPessoa){
 
 };
 
-int cadastrarIdadeCliente(string tipoPessoa){
-    int idade;
-    cout << "Digite a idade do " << tipoPessoa << " para ser cadastrado." << endl;
-    cin >> idade;
-
-    return idade;
-};
-
 string cadastrarFone(string tipoPessoa){
     string fone;
     cout << "Digite o número de telefone do  " << tipoPessoa << " Ex: 559x9xxxxxxxx." << endl;
@@ -539,10 +517,10 @@ string cadastrarEmailCliente(string tipoPessoa){
     cin >> email;
 
     //(Email_check(email))
-    while(!Email_check(email)){
-        cout << "Digite um endereço de E-mail válido para o " << tipoPessoa << endl;
-        cin >> email;
-    }
+    // while(!Email_check(email)){
+    //     cout << "Digite um endereço de E-mail válido para o " << tipoPessoa << endl;
+    //     cin >> email;
+    // }
 
     return email;
 }
@@ -565,7 +543,6 @@ void exibeDadosCliente(Cliente cliente){
     cout << "Logradouro: " << cliente.endereco.logradouro << endl;
     cout << "Número: " << cliente.endereco.numero << endl;
     cout << "CEP: " << cliente.endereco.CEP << endl;
-
 }
 
 void cadastrarCliente(){
@@ -575,17 +552,16 @@ void cadastrarCliente(){
     cliente.idade = 0;
     cliente.nome = cadastrarNomeCliente("cliente");
     exibeDadosCliente(cliente);
-    cliente.idade = cadastrarIdadeCliente("cliente");
+    cliente.idade = cadastrarIdade("cliente");
     exibeDadosCliente(cliente);
     cliente.email = cadastrarEmailCliente("cliente");
     exibeDadosCliente(cliente);
     cliente.fone = cadastrarFone("cliente");
     exibeDadosCliente(cliente);
-    cliente.endereco = cadastrarEndereco("cliente");
+    //  cliente.endereco = cadastrarEndereco("cliente");
     exibeDadosCliente(cliente);
 
 };
-
 
 //FUNÇÕES DO ATENDIMENTO
 string cadastrarDescricao(){
